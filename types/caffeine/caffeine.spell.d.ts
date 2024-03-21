@@ -1,17 +1,21 @@
+type CaffeineSpellConditionCallback = (
+  this: void,
+  spell: CaffeineSpell
+) => boolean;
+
+type CaffeineSpellEventCallback = (this: void, spell: CaffeineSpell) => void;
+
 interface CaffeineSpell {
   Call(unit: CaffeineUnit): boolean;
   Cast(
     unit: CaffeineUnit,
-    condition?: string | ((self: CaffeineSpell) => boolean)
+    condition?: string | CaffeineSpellConditionCallback
   ): boolean;
   Castable(): boolean;
-  CastableIf(func: (spell: CaffeineSpell) => boolean): CaffeineSpell;
+  CastableIf(func: CaffeineSpellConditionCallback): CaffeineSpell;
   ClearCastableFunction(): CaffeineSpell;
-  Click(x: number | CaffeineVector3, y?: number, z?: number): boolean;
-  Condition(
-    name: string,
-    func: (self: CaffeineSpell) => boolean
-  ): CaffeineSpell;
+  Click(x: CaffeineVector3 | number, y?: number, z?: number): boolean;
+  Condition(name: string, func: CaffeineSpellConditionCallback): CaffeineSpell;
   EvaluateCondition(name: string): boolean;
   ForceCast(unit: CaffeineUnit): boolean;
   Fresh(): CaffeineSpell;
@@ -20,7 +24,7 @@ interface CaffeineSpell {
   GetCharges(): number;
   GetChargesFractional(): number;
   GetChargesRemaining(): number;
-  GetCondition(name: string): ((self: CaffeineSpell) => boolean) | null;
+  GetCondition(name: string): CaffeineSpellConditionCallback | null;
   GetCooldown(): number;
   GetCooldownRemaining(): number;
   GetCost(): number;
@@ -31,9 +35,9 @@ interface CaffeineSpell {
   GetLastCastTime(): number;
   GetMaxCharges(): number;
   GetName(): string;
-  GetOnCastFunction(): (self: CaffeineSpell) => void;
-  GetPostCastFunction(): (self: CaffeineSpell) => void;
-  GetPreCastFunction(): (self: CaffeineSpell) => void;
+  GetOnCastFunction(): CaffeineSpellEventCallback;
+  GetPostCastFunction(): CaffeineSpellEventCallback;
+  GetPreCastFunction(): CaffeineSpellEventCallback;
   GetRange(): LuaMultiReturn<[number, number]>;
   GetTarget(): CaffeineUnit;
   GetTimeSinceLastCast(): number;
@@ -53,9 +57,9 @@ interface CaffeineSpell {
   IsSpell(spell: CaffeineSpell): boolean;
   IsUsable(): boolean;
   New(id: number): CaffeineSpell;
-  OnCast(func: (spell: CaffeineSpell) => void): CaffeineSpell;
+  OnCast(func: CaffeineSpellEventCallback): CaffeineSpell;
   OnCooldown(): boolean;
-  PostCast(func: (self: CaffeineSpell) => void): CaffeineSpell;
-  PreCast(func: (spell: CaffeineSpell) => void): CaffeineSpell;
+  PostCast(func: CaffeineSpellEventCallback): CaffeineSpell;
+  PreCast(func: CaffeineSpellEventCallback): CaffeineSpell;
   SetTarget(unit: CaffeineUnit): CaffeineSpell;
 }

@@ -1,11 +1,18 @@
+type CaffeineItemConditionCallback = (
+  this: void,
+  spell: CaffeineItem
+) => boolean;
+
+type CaffeineItemEventCallback = (this: void, spell: CaffeineItem) => void;
+
 interface CaffeineItem {
   Call(unit: CaffeineUnit): boolean;
-  Click(x: number | CaffeineVector3, y?: number, z?: number): boolean;
-  Condition(name: string, func: (self: CaffeineItem) => void): CaffeineItem;
+  Click(x: CaffeineVector3 | number, y?: number, z?: number): boolean;
+  Condition(name: string, func: CaffeineItemConditionCallback): CaffeineItem;
   EvaluateCondition(name: string): boolean;
   GetCharges(): number;
   GetChargesRemaining(): number;
-  GetCondition(name: string): ((self: CaffeineItem) => boolean) | null;
+  GetCondition(name: string): CaffeineItemConditionCallback | null;
   GetCooldown(): number;
   GetCooldownRemaining(): number;
   GetIcon(): number;
@@ -13,13 +20,13 @@ interface CaffeineItem {
   GetLastUseAttempt(): number;
   GetLastUseTime(): number;
   GetName(): string;
-  GetOnUseFunction(): ((self: CaffeineItem) => void) | boolean;
-  GetPreUseFunction(): ((self: CaffeineItem) => void) | boolean;
+  GetOnUseFunction(): CaffeineItemEventCallback | boolean;
+  GetPreUseFunction(): CaffeineItemEventCallback | boolean;
   GetSpell(): CaffeineSpell | null;
   GetTarget(): CaffeineUnit | null;
   GetTimeSinceLastUse(): number;
   GetTimeSinceLastUseAttempt(): number;
-  GetUsableFunction(): ((self: CaffeineItem) => void) | boolean;
+  GetUsableFunction(): CaffeineItemConditionCallback | boolean;
   GetWasLooking(): boolean;
   HasCondition(name: string): boolean;
   IsCurseDispel(): boolean;
@@ -34,10 +41,10 @@ interface CaffeineItem {
   IsPoisonDispel(): boolean;
   IsUsable(): boolean;
   New(id: number): CaffeineItem;
-  OnUse(func: (self: CaffeineItem) => void): CaffeineItem;
-  PreUse(func: (self: CaffeineItem) => void): CaffeineItem;
+  OnUse(func: CaffeineItemEventCallback): CaffeineItem;
+  PreUse(func: CaffeineItemEventCallback): CaffeineItem;
   SetTarget(unit: CaffeineUnit): CaffeineItem;
   Usable(): boolean;
-  UsableIf(func: (self: CaffeineItem) => boolean): CaffeineItem;
+  UsableIf(func: CaffeineItemConditionCallback): CaffeineItem;
   Use(unit: CaffeineUnit, condition: string): boolean;
 }

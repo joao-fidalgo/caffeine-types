@@ -1,5 +1,6 @@
 interface CaffeineAuraTable {
   AddOrUpdateAuraInstanceID(instanceID: number, aura: CaffeineAura): void;
+  Contains(spells: CaffeineList<CaffeineSpell>): boolean;
   Clear(): void;
   Find(spell: CaffeineSpell): CaffeineAura;
   FindAny(spell: CaffeineSpell): CaffeineAura;

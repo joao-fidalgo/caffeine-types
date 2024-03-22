@@ -32,6 +32,7 @@ interface CaffeineSpell {
   GetFullRechargeTime(): number;
   GetIcon(): number;
   GetID(): number;
+  GetLastCastTarget(): CaffeineUnit;
   GetLastCastTime(): number;
   GetMaxCharges(): number;
   GetName(): string;
@@ -39,6 +40,7 @@ interface CaffeineSpell {
   GetPostCastFunction(): CaffeineSpellEventCallback;
   GetPreCastFunction(): CaffeineSpellEventCallback;
   GetRange(): LuaMultiReturn<[number, number]>;
+  GetRank(): number;
   GetTarget(): CaffeineUnit;
   GetTimeSinceLastCast(): number;
   GetTimeSinceLastCastAttempt(): number;

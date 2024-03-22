@@ -39,6 +39,7 @@ interface CaffeineUnit {
   GetPowerRegen(): number;
   GetPowerType(): number;
   GetPP(powerType?: number): number;
+  GetRawPosition(): LuaMultiReturn<[number, number, number]>;
   GetRawUnit(): string;
   GetRealizedHealth(): number;
   GetRealizedHP(): number;
@@ -47,7 +48,9 @@ interface CaffeineUnit {
   GetStaggerPercent(): number;
   GetSwingTimers(): LuaMultiReturn<[number, number]>;
   GetTimeCastIsAt(percent: number): number;
+  InAttackRangeOf(unit: CaffeineUnit): boolean;
   InMelee(unit: CaffeineUnit): boolean;
+  Interact(): void;
   IsAffectingCombat(): boolean;
   IsAlive(): boolean;
   IsBehind(unit: CaffeineUnit): boolean;
@@ -59,7 +62,8 @@ interface CaffeineUnit {
   IsDead(): boolean;
   IsDry(): boolean;
   IsEnemy(): boolean;
-  IsFacing(unit: CaffeineUnit): boolean;
+  IsFacing(unit: CaffeineUnit, bound?: number): boolean;
+  IsFacingLiteral(x: number, y: number, z: number, bound?: number): boolean;
   IsFocus(): boolean;
   IsFriendly(): boolean;
   IsHealer(): boolean;
@@ -67,8 +71,10 @@ interface CaffeineUnit {
   IsIndoors(): boolean;
   IsInfront(unit: CaffeineUnit): boolean;
   IsInParty(): boolean;
+  IsInRaid(): boolean;
   IsInterruptible(): boolean;
   IsInterruptibleAt(percent: number, ignoreInterruptible?: boolean): boolean;
+  IsLootable(): boolean;
   IsMounted(): boolean;
   IsMouseover(): boolean;
   IsMoving(): boolean;
@@ -77,6 +83,10 @@ interface CaffeineUnit {
   IsPCU(): boolean;
   IsPet(): boolean;
   IsPlayer(): boolean;
+  IsRanged(): boolean;
+  IsRooted(): boolean;
+  IsSkinnable(): boolean;
+  IsSlowed(): boolean;
   IsStealthed(): boolean;
   IsSubmerged(): boolean;
   IsTank(): boolean;
@@ -93,6 +103,7 @@ interface CaffeineUnit {
   ): boolean;
   IsWithinDistance(target: CaffeineUnit, distance: number): boolean;
   InCombatOdds(): number;
+  LegacyTTD(): number;
   LinearRegression(
     time: LuaTable, // TODO: Confirm this
     percent: number
@@ -103,6 +114,7 @@ interface CaffeineUnit {
   SetLastCombatTime(time: number): void;
   StartTTDTicker(): void;
   TimeToDie(): number;
+  TimeToDie2(): number;
   Token(): string;
   WatchForSwings(): void;
 }

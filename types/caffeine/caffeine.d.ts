@@ -17,8 +17,10 @@ interface Caffeine {
   readonly ClassMagic: CaffeineClassMagic;
   readonly CombatTimer: CaffeineTimer;
   readonly Commmand: CaffeineCommand;
+  readonly Draw: CaffeineDraw;
   readonly EventManager: CaffeineEventManager;
   readonly Globals: CaffeineGlobals;
+  readonly Interface: CaffeineInterface;
   readonly Item: CaffeineItem;
   readonly Library: CaffeineLibrary;
   readonly ItemBook: CaffeineItemBook;
@@ -32,6 +34,7 @@ interface Caffeine {
   readonly Timer: CaffeineTimer;
   readonly Unit: CaffeineUnit;
   readonly UnitManager: CaffeineUnitManager;
+  readonly Util: CaffeineUtil;
   readonly Vector3: CaffeineVector3;
 
   // Variables
@@ -43,6 +46,8 @@ interface Caffeine {
   FindModule(name: string): void;
   GetLibrary(name: string): CaffeineLibrary;
   Import(library: CaffeineLibrary): unknown[];
+  IsClassic(): boolean;
+  IsWoTLK(): boolean;
   Print(...args: unknown[]): void;
   Register(module: CaffeineModule): void;
   RegisterLibrary(library: CaffeineLibrary): void;
